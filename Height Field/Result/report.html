@@ -1,0 +1,243 @@
+<html>
+	<head>
+		<title>
+			Digital Image Synthesis, Fall 2013 - HW1
+		</title>
+    	<link rel="stylesheet" type="text/css" href="simple.css">
+    	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+    	<style type="text/css">
+    		body {width: 100%;}
+
+    		ul li {margin-top: 10px;}
+
+    		#title {color:#414141;
+    				text-align:center;}
+
+			h4 {color:#707070;
+				text-align:center;
+				width: 100%;
+				margin-left: auto;
+				margin-right: 0px;}
+
+			p {color:#707070;}
+
+			* { font-family:"SquareSerifBook, 'Times New Roman', Times, serif";
+				font-size: 24px;
+				font-style: normal;
+				line-height: 0.75;}
+
+			.container {background-color: #133783;
+						width: 100%;
+						height: 450px;
+						border-radius: 50px;
+						margin-left: -10px;
+						margin-top: 10px;}
+
+			.container1 {background-color: white;
+						width: 100%;
+						height: 450px;
+						border-radius: 50px;
+						margin-left: -10px;
+						margin-top: 10px;}
+
+			.image {float: left;
+					width: 650px;
+					margin-left: 20px;
+					margin-top: 20px;}
+
+			.detail {float: right;
+					 margin-top: 155px;
+					 margin-right: 40px;}
+
+			.detail p, .detail li {color: #C2C2C2;
+								   margin-top: 7px;
+								   font-family: "Georgia, Times New Roman, serif";
+					 	 		   font-style:italic;}
+
+			.detail1 {float: right;
+					 margin-top: 155px;
+					 margin-right: 40px;}
+
+			.detail1 p, .detail1 li {color: #707070;
+									 margin-top: 7px;
+									 font-family: "Georgia, Times New Roman, serif";
+					 	 			 font-style:italic;}
+
+			#comment, h2 {color: #414141;
+						  width: 100%;}
+
+			#comment p {color: #133783;}
+
+			#comment div {margin-left: 50px;}
+
+			#comment li p {	color:#707070;
+							line-height: 30px;}
+
+		</style>
+
+	</head>
+	<body TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+		<h2 id="title">Fall 2013, Digital Image Synthesis</font></h2>
+
+		
+		<h4>Homework 1 - Height Field Intersection</h4>
+
+		<div style="margin-left:auto;margin-right:0;width:400px;">
+			<p style="width:400px;">Reporter: <font color="#133783"><b>呂永鈞 - R02942034</b></font></p>
+			<p>Date submitted: <font color="#133783"><b>2013/10/20</b></font></p>
+			<p>Code emailed: <font color="#133783"><b>2013/10/20</b></font></p>
+		</div>
+		
+
+		
+
+		<h2 id="comment">Description of implementation approach and comments
+			<div>
+				<p>Algorithm: </p>
+				<ul>
+					<li>Intersection: <p>The idea is almost the same as 3-D DDA. First, we check if the ray intersect with the overall grid bound. Second, we setup the parameters for positive or negtive ray-direction. And then, I divide each voxel into two different triangles to test if there is a hit point.</p></li>
+					<li>Normals: <p>When I assign the normals at every vertexs, I suppose every vertex has six adjacent vertexs. If adjacent vertexs are not out of bound, I caculate normals in order from those triangles which adjacent vertexs contribute.</p><div><img src="order1.png"></div>
+					<p>But at some vertexs, I need to change the order otherwise I will caculate the wrong normal. For example, the point 3 and point 4 will be crossed but it should not.</p><div><img src="problem.png"></div>
+					<p>So the order will be changed to another order at those below points.<div><img src="order2.png"></div></p>
+					<p>By the way, I also use another method to assign normals.</p>
+					<div><img src="pattern.png"></div>
+					<p>Let's look at the black area of the right bottom corner to see the difference.</p>
+					<div><img src="landsea3-1.jpg" width="200" height="400" border="5"><img src="landsea-another-1.jpg" width="200" height="400" border="5"></div>
+					<p>Left: "6 adjacent triangles". Right: "4 adjacent triangles"</p>
+					</li>
+					<li>Smooth Methods: <p>In Phong interpolation, I get N1 from interpolating the two normals of P2 and P3. And N2 from interpolating the two normals of P1 and P2. Then I get the normal of hit point from interpolating N1 and N2.<div><img src="normal.png"></div>
+					<p>Let's look at what is the difference between "Phong interpolation" and "Barycentric interpolation".</p>
+					<p>Left: "Barycentric interpolation". Right: "Phong interpolation"</p>
+					<div><img src="hftest-b.jpg" width="200" height="400" border="5"><img src="hftest-p.jpg" width="200" height="400" border="5"></div>
+					<div><img src="landsea-b-1.jpg" width="200" height="400" border="5"><img src="landsea-p-1.jpg" width="200" height="400" border="5"></div>
+					<div><img src="landsea-b-2.jpg" width="200" height="400" border="5"><img src="landsea-p-2.jpg" width="200" height="400" border="5"></div>
+					<p>From the above pictures, we know our eyes can not tell the difference between the two methods, T^T.</p>
+
+					</p></li>
+				</ul>
+				<p>Bugs:</p>
+				<ul>
+					<li>W2O and O2W: <p>This bug happens when I caculate the normal of hit point. It makes my scene have large unknown black area. Furthurmore, my big scene have unknown sea waves which makes me feel very weired.</p></li>
+					<li>Phong: <p>When I use Phong Interpolation, I forget to project points to 2-D plane. So I get non-smooth surface even Phong had been applied. From here, we know we must check which space we can use, 2-D or 3-D, before applying algorithms.</p></li>
+				</ul>
+				<p>Comment: <p style="color:#707070;line-height:30px;">Even the most of code I borrow from PBRT, I'm still suffering form those bugs. Especially in the "GetShadingGeometry", it took me several hours to find it out. The reason is that eventhough your code will not crash but the bug makes your scene be very strang and very hard to trace, T^T.</p></p>
+			</div>
+		</h2>
+
+		<h2 style="margin-bottom:20px;">Comparison of Images between Mine and Origin</h2>
+
+		<div class="container">
+			<div class="image">
+				<img border="0" src="hftest.jpg" width="200" height="400">
+				<img border="0" src="hf2test.jpg" width="200" height="400">
+				<img border="0" src="hf2test3.jpg" width="200" height="400">
+			</div>
+			<div class="detail">
+				<p>hftest.pbrt</p>
+		      	<p>Timings:</p>
+		      	<ul>
+		       	 <li>Original: 2.1 seconds</li>
+		       	 <li>Mine without Phong: 2.4 seconds (114% original)</li>
+		       	 <li>Mine with Phong: 2.6 seconds (124% original)</li>
+		     	</ul>
+		    </div>
+		</div>
+
+		<div class="container1">
+			<div class="image">
+				<img border="0" src="texture.jpg" width="200" height="400">
+				<img border="0" src="texture2.jpg" width="200" height="400">
+				<img border="0" src="texture3.jpg" width="200" height="400">
+			</div>
+			<div class="detail1">
+				<p>texture.pbrt</p>
+		      	<p>Timings:</p>
+		      	<ul>
+		       	 <li>Original: 18.1 seconds</li>
+		       	 <li>Mine without Phong: 62.5 seconds (345% original)</li>
+		       	 <li>Mine with Phong: 64.4 seconds (356% original)</li>
+		     	</ul>
+		    </div>
+		</div>
+
+		<div class="container">
+			<div class="image">
+				<img border="0" src="landsea-0.jpg" width="200" height="400">
+				<img border="0" src="landsea2-0.jpg" width="200" height="400">
+				<img border="0" src="landsea3-0.jpg" width="200" height="400">
+			</div>
+			<div class="detail">
+				<p>landsea-0.pbrt</p>
+		      	<p>Timings:</p>
+		      	<ul>
+		       	 <li>Original: 28.0 seconds</li>
+		       	 <li>Mine without Phong: 111.2 seconds (397% original)</li>
+		       	 <li>Mine with Phong: 102 seconds (364% original)</li>
+		     	</ul>
+		    </div>
+		</div>
+
+		<div class="container1">
+			<div class="image">
+				<img border="0" src="landsea-1.jpg" width="200" height="400">
+				<img border="0" src="landsea2-1.jpg" width="200" height="400">
+				<img border="0" src="landsea3-1.jpg" width="200" height="400">
+			</div>
+			<div class="detail1">
+				<p>landsea-1.pbrt</p>
+		      	<p>Timings:</p>
+		      	<ul>
+		       	 <li>Original: 30.3 seconds</li>
+		       	 <li>Mine without Phong: 90.1 seconds (297% original)</li>
+		       	 <li>Mine with Phong: 91.5 seconds (302% original)</li>
+		     	</ul>
+		    </div>
+		</div>
+
+		<div class="container">
+			<div class="image">
+				<img border="0" src="landsea-2.jpg" width="200" height="400">
+				<img border="0" src="landsea2-2.jpg" width="200" height="400">
+				<img border="0" src="landsea3-2.jpg" width="200" height="400">
+			</div>
+			<div class="detail">
+				<p>landsea-2.pbrt</p>
+		      	<p>Timings:</p>
+		      	<ul>
+		       	 <li>Original: 25.1 seconds</li>
+		       	 <li>Mine without Phong: 63.5 seconds (253% original)</li>
+		       	 <li>Mine with Phong: 66.5 seconds (265% original)</li>
+		     	</ul>
+		    </div>
+		</div>
+
+		<div class="container1">
+			<div class="image">
+				<img border="0" src="landsea-big.jpg" width="300" height="400">
+				<img border="0" src="landsea2-big.jpg" width="300" height="400">
+			</div>
+			<div class="detail1">
+				<p>landsea-big.pbrt(without Phong interpolation)</p>
+		      	<p>Timings:</p>
+		      	<ul>
+		       	 <li>Original: 655.2 seconds</li>
+		       	 <li>My implementation: 4009.8 seconds (612% original)</li>
+		     	</ul>
+		    </div>
+		</div>
+
+		<div style="width:100%;background-color:#133783;border-radius: 50px;height:730px">
+			<div style="margin:10px;margin-left:auto;margin-right:auto;width:600px;">
+				<img border="0" src="landsea3-big.jpg" width="600" height="600">
+			</div>
+			<div style="margin:10px;margin-left:auto;margin-right:auto;width:600px;">
+				<p style="margin-top:25px;color:#c2c2c2;font-family: 'Georgia, Times New Roman, serif';font-style:italic;">landsea-big.pbrt(with Phong interpolation)</p>
+				<p style="margin-top:25px;color:#c2c2c2;font-family: 'Georgia, Times New Roman, serif';font-style:italic;">Timings:4140.8 seconds (612% original)</p>
+			</div>
+			
+		</div>
+		
+
+	</body>
+</html>

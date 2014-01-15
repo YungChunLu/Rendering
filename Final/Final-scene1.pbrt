@@ -1,0 +1,59 @@
+
+Film "image"
+	"integer xresolution" [512] "integer yresolution" [512] 
+    "string filename" "Final-scene1.exr"
+
+SurfaceIntegrator "directlighting" "integer maxdepth" [10]
+
+LookAt 0 2 0   50 0 50 0 1 0
+Camera "perspective" "float fov" [80 ]
+
+
+WorldBegin
+Translate -2 -1 -2
+
+AttributeBegin
+  LightSource "distant" "point from" [-50 50 20 ] "point to" [200 0 -200 ] "color L"
+    [.3141593 .3141593 .3141593 ]
+
+  Texture "checker" "color" "checkerboard" 
+    "string mapping" "planar"
+    "vector v1" [ 1 0 0 ] "vector v2" [ 0 0 1]
+    "string aamode" ["none"]
+  
+  Texture "lines-tex" "color" "imagemap" "string filename" "textures/lines.exr"
+    "float uscale" [100] "float vscale" [100]
+
+  Material "matte" "texture Kd" "lines-tex"
+    Shape "trianglemesh"  "integer indices" [0 2 1 0 3 2 ] 
+  "point P" [-100 -1 -100 400 -1 -100 400 -1 400 -100 -1 400 ] 
+        "float st" [ 0 0 1 0 0 1 1 1]
+AttributeEnd
+
+Translate 2 0 2
+Rotate 45 0 1 0
+
+AttributeBegin
+  Translate 0 1 10
+  Scale 2 2 1
+
+  Material "matte"
+  Shape "sphere"
+AttributeEnd
+
+Translate 0 3 0
+AttributeBegin
+  Translate -3 -1.5 5
+  Rotate 0 0 1 0
+  Scale 5 2.5 1
+
+  Material "splitter" "color Kr" [1 1 1] "color Kt" [1 1 1]
+  Include "hf100x100.pbrt"  
+AttributeEnd
+
+AttributeBegin
+  LightSource "Lcos" "float fov" [30 ] "float scale" [1]
+    "string mapname" ["textures/grace_latlong.exr"]
+AttributeEnd
+
+WorldEnd

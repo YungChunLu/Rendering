@@ -1,0 +1,206 @@
+<html>
+	<head>
+		<title>
+			Digital Image Synthesis, Fall 2013 - HW2
+		</title>
+    	<link rel="stylesheet" type="text/css" href="simple.css">
+    	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+    	<style type="text/css">
+    		body {width: 100%;}
+
+    		ul li {margin-top: 10px;}
+
+    		#title {color:#ED3B83;
+    				text-align:center;}
+
+			h4 {color:#ED3B83;
+				text-align:center;
+				width: 100%;
+				margin-left: auto;
+				margin-right: 0px;}
+
+			p {color:#414141;}
+
+			* { font-family:"SquareSerifBook, 'Times New Roman', Times, serif";
+				font-size: 22px;
+				font-style: normal;
+				line-height: 0.75;}
+
+			.container {background-color: #133783;
+						width: 100%;
+						height: 470px;
+						border-radius: 50px;
+						margin-left: -10px;
+						margin-top: 30px;}
+
+			.image {float: left;
+					width: 100%;
+					}
+
+			.image_left {width: 40%;
+						margin-right: auto;
+						margin-left: 6%;
+						height: 0;}
+
+			.label {margin-left: auto;
+					margin-right: auto;
+					width: 100%;
+					color: #ED3B83;}
+
+			.image_right {width: 40%;
+						 margin-left: auto;
+						 margin-right: -6%;
+						 margin-top: -10%;
+						 height: 0;}
+
+			.vs {height: 0;
+				 margin-left: 4%;
+				 margin-top: 10%;}
+
+			.detail {float: right;
+					 margin-top: 155px;
+					 margin-right: 40px;}
+
+			.detail p, .detail li {color: #C2C2C2;
+								   margin-top: 7px;
+								   font-family: "Georgia, Times New Roman, serif";
+					 	 		   font-style:italic;}
+
+			#comment, h2 {color: #414141;
+						  width: 100%;}
+
+			#comment p {color: #ED3B83;}
+
+			#comment div {margin-left: 50px;
+						  margin-bottom: 100px;}
+
+			#comment li p {	color:#414141;
+							width: 95%;
+							line-height: 30px;}
+
+			.copyright {margin-left: auto;
+						margin-right: auto;
+						width: 20%;}
+
+		</style>
+
+	</head>
+	<body TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+		<h2 id="title">Digital Image Synthesis</font></h2>
+
+		
+		<h4>Homework 2 - Realistic Camera</h4>
+
+		<div style="margin-left:auto;margin-right:0;width:400px;">
+			<p style="width:400px;">Reporter: <font color="#ED3B83"><b>呂永鈞 - R02942034</b></font></p>
+			<p>Date submitted: <font color="#ED3B83"><b>2013/11/11</b></font></p>
+			<p>Code emailed: <font color="#ED3B83"><b>2013/11/11</b></font></p>
+		</div>
+		
+
+		<h2 id="comment">Outline
+			<div>
+				<p>Algorithm:
+					<ul>
+						<li>
+							<p>Sampling on Lens: I implement two methods showed on the slides. The ideas are very straight and easy to implement.</p>
+						</li>
+						<li>
+							<p>Refraction: I use Heckber's Method as my refraction method.</p>
+						</li>
+						<li>
+							<p>Intersection: I use the robust algorithm to implement my intersection between ray and lens.</p>
+							<div><img src="refraction.jpg"></div>
+						</li>
+						<li>
+							<p>Tracing: As for tracing ray between different lens, I implement a function, Propagating, to be called each time if the ray still could go next.</p>
+						</li>
+					</ul>
+				</p>
+				
+				<p>Bugs:
+					<ul>
+						<li>
+							<p>When building lens structure, the index of refraction of aperture stop needs to set as 1.</p>
+						</li>
+						<li>
+							<p>When building the transform from Raster to Camera, it's very tricky. We need to be very careful and focused.</p>
+						</li>
+					</ul>
+				</p>
+				
+				<p>Comment: </p><p style="color:#414141;width: 95%;line-height: 30px;">Although I personally thought that this work is easier than previous, the effors I paid for were still not much less. When I tracing tracing the ray between lens, there were some stupid conditions I got trapped, so I paid a lot of time on those bugs.</p>
+			</div>
+		</h2>
+
+
+
+		<div class="container">
+			<div class="image">
+				<div class="image_left">
+					<img border="0" src="dof_dragons_dgauss_4.jpg" width="300" height="400">
+					<p class="label">DGAUSS LEN IN 512 BITS</p>
+				</div>
+				<div class="vs">
+					<img border="0" src="vs.png">
+				</div>
+				<div class="image_right">
+					<img border="0" src="dof_dragons_dgauss_512.jpg" width="300" height="400">
+					<p class="label">DGAUSS LEN IN 512 BITS</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="image">
+				<div class="image_left">
+					<img border="0" src="dof_dragons_telephoto_4.jpg" width="300" height="400">
+					<p class="label">TELEPHOTO LEN IN 4 BITS</p>
+				</div>
+				<div class="vs">
+					<img border="0" src="vs.png">
+				</div>
+				<div class="image_right">
+					<img border="0" src="dof_dragons_telephoto_512.jpg" width="300" height="400">
+					<p class="label">TELEPHOTO LEN IN 512 BITS</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="image">
+				<div class="image_left">
+					<img border="0" src="dof_dragons_fisheye_4.jpg" width="300" height="400">
+					<p class="label">FISHEYE LEN IN 4 BITS</p>
+				</div>
+				<div class="vs">
+					<img border="0" src="vs.png">
+				</div>
+				<div class="image_right">
+					<img border="0" src="dof_dragons_fisheye_512.jpg" width="300" height="400">
+					<p class="label">FISHEYE LEN IN 512 BITS</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="image">
+				<div class="image_left">
+					<img border="0" src="dof_dragons_wide_4.jpg" width="300" height="400">
+					<p class="label">WIDE LEN IN 4 BITS</p>
+				</div>
+				<div class="vs">
+					<img border="0" src="vs.png">
+				</div>
+				<div class="image_right">
+					<img border="0" src="dof_dragons_wide_512.jpg" width="300" height="400">
+					<p class="label">WIDE LEN IN 512 BITS</p>
+				</div>
+			</div>
+		</div>
+	<div class="copyright">
+		<p>Copyright © Fall 2013</p>
+	</div>
+	</body>
+</html>

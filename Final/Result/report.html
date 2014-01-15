@@ -1,0 +1,256 @@
+<html>
+	<head>
+		<title>
+			Digital Image Synthesis, Fall 2013 - Final Project
+		</title>
+    	<link rel="stylesheet" type="text/css" href="simple.css">
+    	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+    	<style type="text/css">
+
+    		body {width: 100%;}
+
+    		#title {color:#F7505A;
+    				text-align:center;
+    				font-size: 85px;
+    				font-style: bold;}
+
+			* { font-family:"SquareSerifBook, 'Times New Roman', Times, serif";
+				font-size: 22px;
+				font-style: normal;
+				line-height: 1.5;}
+
+			img { width: 100%;}
+
+			#decoration { float: right;
+						  width: 15%;
+						  margin-top: -18%;}
+
+			#author { height: 100%;
+					  margin-left: 10%;
+					  padding-top: 15%;
+					  padding-right: 10%;
+					  margin-bottom: -33%;}
+
+			#me { width: 20%;
+				  float: left;
+				  margin-left: 7%;}
+
+			#project { width: 35%;
+						 float: left;
+						 margin-left: 5%;
+						 margin-right: 5%;}
+
+			#released { float: left;
+					   width: 20%;}
+
+			hr { width: 40%;
+				 border-color: #F7505A;}
+
+			.section { height: 100%;
+					   color: #F7505A;
+					   padding-left: 10%;
+					   padding-top: 5%;
+					   padding-right: 10%;}
+
+			.section-comment { width: 80%;
+								  float: left;
+								  margin-left: 12%;}
+
+			.section-title { text-align:center;
+								font-size: 30px;}
+
+			.section-pic-div { margin-bottom: -10%;}
+
+			.section-pic { width: 20%;
+							  margin-left: 40%;
+							  float: center;}
+
+			#algorithm-detail { margin-top: 5%;
+								width: 100%;}
+
+			#algorithm-left { width: 50%;
+							  float: left;}
+
+			#algorithm-right { width: 50%;
+							   float: left;}
+
+			.system-block { width: 33%;
+							text-align: center;
+							float: left;}
+
+			.system-pic { width: 35%;
+						  margin-bottom: -20%;}
+
+			#system-group { padding-top: 5%;}
+
+			#discussion { height: 110%;}
+
+			.disscussion-block { width: 45%;
+								 margin-left: 1%;
+								 margin-right: 4%;
+								 text-align: center;
+								 float: left;}
+
+			#implementation {margin-bottom: -11%;}
+
+			ul li { line-height: 30px;}
+
+			#copyright-container { background-color: #F7505A;
+								   height: 4%;
+								   border-radius: 10px;
+								   margin-left: auto;
+						 		   margin-right: auto;
+						 		   margin-top: 35%;
+						 		   width: 30%;}
+
+			.result { width: 40%;
+					  float: left;
+					  padding-left: 5%;
+					  padding-right: 5%;}
+
+			.result-container {height: 55%;}
+
+			#copyright { color: white;
+						 width: 100%;
+						 margin-left: 5%;}
+			
+		</style>
+
+	</head>
+	<body>
+		<h2 id="title">Final Project</h2>
+
+		<div id="decoration">
+			<img src="decoration.jpg">
+		</div>
+
+		<div id="author">
+			<div id='me'><img src="me.jpg"></div>
+			<div id='project'><img src="G-glass2.jpg"></div>
+			<div id='released'><img src="released.jpg"></div>
+		</div>
+		
+		<hr>
+
+		<div class="section">
+			<div class="section-pic-div">
+				<div class='section-pic'><img src="G-glass3.jpg"></div>
+			</div>
+			<h2 class="section-title">Motivation</h2>
+			<p class="section-comment">
+				Since Google released the first explorer wearable device in Feb 2013, more and more people has jumped into this area to develope their ideas about wearable computing devices. Moreover this device could provide a virtual screen which would be floating on the air and combining with the real scene to users. So it inspires me to use the techniques I learned from this course to simulate this amazing feature.   
+			</p>	
+		</div>
+		
+		<hr>
+
+		<div class="section">
+			<div class="section-pic-div">
+				<div class='section-pic'><img src="algorithm1.jpg"></div>
+			</div>
+			<h2 class="section-title">Algorithm</h2>
+			<div id="algorithm-detail">
+				<div id="algorithm-left">
+					<img src="algorithm.jpg">
+				</div>
+				<div id="algorithm-right">
+					<p>
+						Left image shows how I image the path of light coming from the mini projector and the how the light will change the path on the special surface, combiner. The surface, combiner, has two special bsaf, specular-reflection and specular-transmission. So the eye will receive a light combining two light sources, ambient-light and projector-light. 
+					</p>
+				</div>
+			</div>	
+		</div>
+		
+		<hr>
+
+		<div class="section">
+			<div class="section-pic-div">
+				<div class='section-pic'>
+					<img src="G-glass5.jpg">
+				</div>
+			</div>
+			<h2 class="section-title">System</h2>
+			<div id="system-group">
+				<div class="system-block">
+					<img src="light.jpg" class="system-pic">
+					<h3>
+						- Light Source -
+					</h3>
+					<p>
+						For the light source, I use the default projector light source as my base class. But because this class considers all the light is coming from a point instead of coming from a series of parallel light which is what I want. So I modify the direction of incoming light. 
+					</p>
+				</div>
+				<div class="system-block">
+					<img src="material.jpg" class="system-pic">
+					<h3>
+						- Material -
+					</h3>
+					<p>
+						For the material, I use the concept of light-splitter to implement this material. This material will have two specular propertities in its bsdf, specular reflection and specular transmittion. I also give this material a parameter to control the ratio between reflection and transmittion. 
+					</p>
+				</div>
+				<div class="system-block">
+					<img src="integrator.jpg" class="system-pic">
+					<h3>
+						- Integrator -
+					</h3>
+					<p>
+						I use the directlighting as my surface integrator. But because the default implementation about finding the intensity of light from sampling a point in bsdf always return zero. It makes the light coming from the splitter always become zero. So I design a special surface integrator for my system.    
+					</p>
+				</div>
+			</div>	
+		</div>
+		
+		<hr>
+
+		<div class="section" id="discussion">
+			<div class="section-pic-div">
+				<div class='section-pic'><img src="discussion.jpg"></div>
+			</div>
+			<h2 class="section-title">Discussion</h2>
+			<div id="disscussion-group">
+				<div class="disscussion-block">
+					<img src="implementation.jpg" class="system-pic" id="implementation">
+					<h3>
+						- Implementation -
+					</h3>
+					<p>
+						At the begining, I naively thinked what I wanted to solve was very easy to fulfill. During the implementaion, I spent much time on tracing the core of code in pbrt and reading the material about all the topics related to this problem. Although it was such a painful process, this experience made me more clearly know the structure of pbrt and how to implement, like ligth and material. 
+					</p>
+				</div>
+				<div class="disscussion-block">
+					<img src="course.jpg" class="system-pic">
+					<h3>
+						- Course -
+					</h3>
+					<p>
+						Thanks for this amazing course could be teached by a knowledgeable instructor. Also thanks for my luck, it makes me have this opportunity to have a most wonderful course. This course gives me the whole idea about how to synthesize the real-like image based on physics of light. 
+					</p>
+				</div>
+			</div>	
+		</div>
+		
+		<hr>
+
+		<div class="section">
+			<div class="section-pic-div">
+				<div class='section-pic'><img src="result.jpg"></div>
+			</div>
+			<h2 class="section-title">Result</h2>
+			<div class="result-container">
+				<div class="result"><img src="scene1.jpg"></div>
+				<div class="result"><img src="scene1-1.jpg"></div>
+			</div>
+			
+			<div class="result-container">
+				<div class="result"><img src="scene2.jpg"></div>
+				<div class="result"><img src="scene2-1.jpg"></div>
+			</div>
+		</div>
+
+	<div id="copyright-container">
+		<p id="copyright">Copyright © Newmilktea, Fall 2013</p>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,66 @@
+
+Film "image"
+	"integer xresolution" [512] "integer yresolution" [512] 
+    "string filename" "Final-scene2.exr"
+
+SurfaceIntegrator "directlighting" "integer maxdepth" [10]
+
+LookAt 0 1 2   50 0 50 0 1 0
+Camera "perspective" "float fov" [80 ]
+
+
+WorldBegin
+
+Translate -2 -1 -2
+
+AttributeBegin
+
+  Texture "checker" "color" "checkerboard" 
+    "string mapping" "planar"
+    "vector v1" [ 1 0 0 ] "vector v2" [ 0 0 1]
+    "string aamode" ["none"]
+  
+  Texture "lines-tex" "color" "imagemap" "string filename" "textures/lines.exr"
+    "float uscale" [100] "float vscale" [100]
+
+  Material "matte" "texture Kd" "lines-tex"
+    Shape "trianglemesh"  "integer indices" [0 2 1 0 3 2 ] 
+  "point P" [-100 -1 -100 400 -1 -100 400 -1 400 -100 -1 400 ] 
+        "float st" [ 0 0 1 0 0 1 1 1]
+AttributeEnd
+
+Translate 2 0 2
+Rotate 40 0 1 0
+
+
+Rotate 5 0 1 0
+Translate 0 3 0
+AttributeBegin
+  Translate -3 -1 5
+  Rotate 5 0 1 0
+  Scale 5 3 1
+
+  Material "splitter" "color Kr" [1 1 1] "color Kt" [1 1 1]
+  Include "hf100x100.pbrt"  
+AttributeEnd
+
+AttributeBegin
+  LightSource "Lcos" "float fov" [30 ] "float scale" [2]
+    "string mapname" ["textures/mybunny.exr"]
+AttributeEnd
+
+Rotate -15 0 1 0
+Translate 0 -1.5 0
+AttributeBegin
+  LightSource "distant" "point from" [-50 2 -30 ] "point to" [40 0 120 ] "color L"
+    [.05 .05 .05]
+
+  Translate -7 -2 35
+  Scale 30 30 1
+  Rotate -80 0 1 0
+
+  Material "measured" "string filename" "brdfs/mystique.brdf"
+  Include "geometry/bunny.pbrt"
+
+AttributeEnd
+WorldEnd

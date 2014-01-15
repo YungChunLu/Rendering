@@ -1,0 +1,3 @@
+CPU: Intel Core Duo E8400 3GHz
+RAM: 6GB
+OS : Windows XP SP3

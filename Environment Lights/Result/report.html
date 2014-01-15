@@ -1,0 +1,174 @@
+<html>
+	<head>
+		<title>
+			Digital Image Synthesis, Fall 2013 - HW3
+		</title>
+    	<link rel="stylesheet" type="text/css" href="simple.css">
+    	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+    	<style type="text/css">
+    		body {width: 100%;}
+
+    		#title {color:#F7505A;
+    				text-align:center;
+    				padding-top: 5%;
+    				font-style: bold;}
+
+			* { font-family:"SquareSerifBook, 'Times New Roman', Times, serif";
+				font-size: 22px;
+				font-style: normal;
+				line-height: 0.75;}
+
+			img { width: 100%;}
+
+			#decoration { float: right;
+						  width: 15%;
+						  margin-top: -9%;}
+
+			#author { height: 100%;
+					  margin-left: 10%;
+					  padding-top: 15%;
+					  padding-right: 10%;
+					  margin-bottom: -40%;}
+
+			#me { width: 20%;
+				  float: left;
+				  margin-left: 7%;}
+
+			#submitted { width: 20%;
+						 float: left;
+						 margin-left: 10%;
+						 margin-right: 5%;}
+
+			#emailed { float: left;
+					   width: 20%;
+					   margin-left: 10%;}
+
+			hr { width: 40%;
+				 border-color: #F7505A;}
+
+			#comment { height: 100%;
+					   color: #F7505A;
+					   padding-left: 10%;
+					   padding-top: 5%;
+					   padding-right: 10%;
+					   margin-bottom: -40%;}
+
+			ul li { line-height: 30px;}
+
+			#copyright-container { background-color: #F7505A;
+								   height: 4%;
+								   border-radius: 10px;
+								   margin-left: auto;
+						 		   margin-right: auto;
+						 		   width: 30%;}
+
+			#gallery-container { padding-left: 10%;
+								 padding-right: 10%;
+								 padding-top: 5%;
+								 
+								 height: 100%;}
+
+			.result { width: 40%;
+					  float: left;
+					  padding-left: 5%;
+					  padding-right: 5%;}
+
+			.up {height: 50%;}
+
+			.down {height: 50%;}
+
+			#copyright { color: white;
+						 padding-top: 3%;
+						 width: 100%;
+						 margin-left: 5%;}
+
+		</style>
+
+	</head>
+	<body>
+		<h2 id="title">Homework 3 - Environnment Light</h2>
+
+		<div id="decoration">
+			<img src="decoration.jpg">
+		</div>
+
+		<div id="author">
+			<div id='me'><img src="me.jpg"></div>
+			<div id='submitted'><img src="submitted.jpg"></div>
+			<div id='emailed'><img src="emailed.jpg"></div>
+		</div>
+		
+		<hr>
+
+		<div id="comment">
+			<h2>Discussion</h2>
+			<ul>
+				<li>VPL: The default random function in C++ is not capable of generating what we want, because it will result much noise than RNG function. So I use the uComponent of LightSample ls as my random number.</li>
+				<li>Memory: In my case, the memory is not enough for finishing this work if I do not delete those useless data after assigning VPLs. Ex: The summed area table.</li>
+			</ul>	
+		</div>
+		
+		<hr>
+
+		<div id="gallery-container">
+			<div class="up">
+				<div class="result"><img src="latlong-4.jpg"></div>
+				<div class="result"><img src="latlong-4 infinite.jpg"></div>
+			</div>
+			
+			<div class="down">
+				<div class="result"><img src="latlong-16.jpg"></div>
+				<div class="result"><img src="latlong-16 infinite.jpg"></div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div id="gallery-container">
+			<div class="up">
+				<div class="result"><img src="latlong-64.jpg"></div>
+				<div class="result"><img src="latlong-64 infinite.jpg"></div>
+			</div>
+			
+			<div class="down">
+				<div class="result"><img src="latlong-256.jpg"></div>
+				<div class="result"><img src="latlong-256 infinite.jpg"></div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div id="gallery-container">
+			<div class="up">
+				<div class="result"><img src="new latlong-4.jpg"></div>
+				<div class="result"><img src="new latlong-4 infinite.jpg"></div>
+			</div>
+			
+			<div class="down">
+				<div class="result"><img src="new latlong-16.jpg"></div>
+				<div class="result"><img src="new latlong-16 infinite.jpg"></div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div id="gallery-container">
+			<div class="up">
+				<div class="result"><img src="new latlong-64.jpg"></div>
+				<div class="result"><img src="new latlong-64 infinite.jpg"></div>
+			</div>
+			
+			<div class="down">
+				<div class="result"><img src="new latlong-256.jpg"></div>
+				<div class="result"><img src="new latlong-256 infinite.jpg"></div>
+			</div>
+		</div>
+
+
+
+	<div id="copyright-container">
+		<p id="copyright">Copyright © Newmilktea, Fall 2013</p>
+	</div>
+	</body>
+</html>
