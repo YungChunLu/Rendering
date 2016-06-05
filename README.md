@@ -16,3 +16,6 @@
 ## Assignment 4 - Final
   * Since Google released the first explorer wearable device in Feb 2013, more and more people has jumped into this area to develope their ideas about wearable computing devices. Moreover this device could provide a virtual screen which would be floating on the air and combining with the real scene to users. So it inspires me to use the techniques I learned from this course to simulate this amazing feature.
   * ![Alt](https://github.com/ArthurLu/Rendering/blob/master/Final/Result/algorithm.jpg)
+
+## License
+The content of this repository is licensed under [MIT License](https://github.com/ArthurLu/Rendering/blob/master/LICENSE.txt)
